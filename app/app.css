@@ -1,0 +1,488 @@
+:root {
+  --color-background: #e9e4e4;
+  --color-text: #242323;
+  --color-detail: #0084ff;
+  --color-upper: #ffb35f;
+  --default-transition: 0.2s;
+
+  --card-text-color: #1e1e1e;
+  --card-detail-color: #242323;
+  --card-divider-color: #e0e0e0;
+
+  --card-text-color-dark: #dbcece;
+  --card-detail-color-dark: #dfdfdf;
+  --card-divider-color-dark: #dbcece;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("Rubik.ttf");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-background);
+  font-family: "Rubik", sans-serif;
+  color: var(--color-text);
+  margin: 0;
+}
+
+#error,
+#home {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#error *::selection,
+#home *::selection {
+  background-color: var(--color-upper);
+  color: var(--color-text);
+}
+
+#error h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+#home h1 {
+  font-size: 2.5rem;
+  width: 100%;
+}
+
+button {
+  width: 13rem;
+  height: 2.75rem;
+  margin-top: 0.5rem;
+  border: none;
+  outline-offset: 0.1rem;
+  outline: 0.15rem solid transparent;
+  font-size: 0.9rem;
+  background-color: var(--color-upper);
+  transition: var(--default-transition);
+  border-radius: 0.1rem;
+  padding: 0;
+}
+
+input {
+  display: block;
+  width: 15rem;
+  height: 2.5rem;
+  margin: 0.7rem auto;
+  border: none;
+  outline-offset: 0.1rem;
+  outline: 0.15rem solid transparent;
+  font-size: 0.9rem;
+  text-align: center;
+  background-color: var(--color-upper);
+  color: var(--color-background);
+  transition: var(--default-transition);
+  border-radius: 0.1rem;
+}
+
+button:hover,
+input:hover {
+  outline: 0.15rem solid var(--color-upper);
+}
+
+button:focus,
+input:focus {
+  outline-offset: -0.05rem;
+  background-color: var(--color-upper);
+  outline: 0.3rem solid var(--color-upper);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+#wrappedOther {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+#cardsContainer {
+  margin: 5rem auto;
+  display: grid;
+  justify-content: center;
+  gap: 1rem;
+  grid-template-columns: 26rem;
+}
+
+#cardUtilities {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+#cardUtilities button {
+  width: 11rem;
+  margin: 1rem;
+}
+
+@media (min-width: 83rem) {
+  #wrappedOther {
+    margin-top: 1.5rem;
+  }
+
+  #cardsContainer {
+    margin: 2rem auto;
+    grid-template-columns: repeat(3, 26rem);
+  }
+
+  #cardUtilities {
+    margin-bottom: 0rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  #cardsContainer {
+    transform: scale(0.9);
+    margin: 0 auto;
+  }
+}
+
+.wrapped-card {
+  min-width: 26rem;
+  width: 26rem;
+  height: 42rem;
+  background-color: var(--card-background-color);
+  border-radius: 0.8rem;
+  overflow: hidden;
+  color: var(--card-text-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapped-card.exporting {
+  border-radius: 0;
+}
+
+.wrapped-card.dark {
+  background-color: var(--card-background-color-dark);
+
+  p,
+  li {
+    color: var(--card-text-color-dark);
+  }
+
+  .divider {
+    background-color: var(--card-divider-color-dark);
+  }
+
+  .group p:first-child,
+  .ad p {
+    color: var(--card-detail-color-dark);
+  }
+
+  *::selection {
+    color: var(--card-background-color-dark);
+  }
+}
+
+.header {
+  position: relative;
+  height: 50%;
+}
+
+.header .image {
+  width: 50%;
+  display: block;
+  position: relative;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  outline: 0.2rem solid var(--accent-color);
+  box-shadow: 0 0 0.6rem 0.2rem var(--accent-color);
+  margin-left: 1rem;
+  border-radius: 0.3rem;
+  z-index: 3;
+}
+
+.header .decoration {
+  border-radius: 0.8rem;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+
+.header .backgroundPattern {
+  position: absolute;
+  height: 88%;
+  width: 88%;
+  top: 8%;
+  left: 6%;
+  mask-image:
+    var(--pattern-image),
+    linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+  mask-repeat: repeat, no-repeat;
+  mask-size: var(--pattern-size), 100%;
+  mask-position: center;
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+  background-color: var(--accent-color);
+  border-radius: 1rem;
+}
+
+.header p {
+  position: absolute;
+  left: -12%;
+  z-index: 3;
+  transform: rotate(270deg);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.2rem;
+  -webkit-text-stroke-color: var(--accent-color);
+  background-color: var(--accent-color);
+  background-clip: text;
+  text-shadow: 0 0 0.5rem var(--accent-color);
+  font-size: 6rem;
+  font-weight: 700;
+  backdrop-filter: blur(50rem);
+}
+
+.exporting .backgroundPattern {
+  background: none;
+  border-radius: 0;
+}
+
+.exporting .header p {
+  -webkit-text-fill-color: initial;
+  -webkit-text-stroke: 0;
+  background: none;
+  color: var(--accent-color);
+  opacity: 0.9;
+  left: -9%;
+  top: -2%;
+}
+
+.exporting .header .decoration {
+  background-color: var(--accent-color);
+  opacity: 0.05;
+  border-radius: 0;
+}
+
+.exporting .header .image {
+  top: 49%;
+  box-shadow: none;
+  outline: 0.3rem solid var(--accent-color);
+  outline-offset: 0;
+  filter: blur(0.3px);
+}
+
+.content {
+  flex-grow: 1;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.leaderboards {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0rem;
+}
+
+.list-section {
+  flex: 1;
+}
+
+.list-section p {
+  font-size: 0.9rem;
+  color: var(--card-detail-color);
+}
+
+.list-section ol {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-section ol li {
+  height: 1.1rem;
+  vertical-align: middle;
+  width: 11rem;
+  margin-right: 1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.list-section ol li span {
+  font-weight: bold;
+  text-align: right;
+  margin-right: 0.4rem;
+  color: var(--accent-color);
+}
+
+.divider {
+  border: none;
+  height: 0.1rem;
+  background-color: var(--card-divider-color);
+  margin: 1.5rem 0;
+}
+
+.stats {
+  display: flex;
+}
+
+.group {
+  flex: 1;
+  margin-bottom: 0.4rem;
+}
+
+.group p:first-child {
+  font-size: 0.9rem;
+  color: var(--card-detail-color);
+  margin: 0 0 0.7rem 0;
+}
+
+.group p:last-child {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.group:first-child p:last-child {
+  color: var(--accent-color);
+}
+
+.group:last-child p:last-child {
+  background: var(--accent-color);
+  color: var(--card-background-color);
+  padding: 0.15rem 0.3rem;
+  border-radius: 0.3rem;
+  display: inline-block;
+  font-size: 1.5rem;
+}
+
+.ad {
+  margin: 2rem 0.3rem 0 0.3rem;
+}
+
+.ad svg {
+  float: left;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+}
+
+.ad p {
+  float: right;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: var(--card-detail-color);
+  margin: 0;
+}
+
+.wrapped-card *::selection {
+  background-color: var(--accent-color);
+  color: var(--card-background-color);
+}
+
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #29d;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow:
+    0 0 10px #29d,
+    0 0 5px #29d;
+  opacity: 1;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+  -ms-transform: rotate(3deg) translate(0px, -4px);
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+
+  border: solid 2px transparent;
+  border-top-color: #29d;
+  border-left-color: #29d;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+  animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes nprogress-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #141313;
+    --color-text: #e9e4e4;
+    --color-detail: #ffb35f;
+    --color-upper: #61aef7;
+  }
+}
