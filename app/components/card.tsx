@@ -109,7 +109,7 @@ export const WrappedCard = ({
         style={{
           //@ts-ignore
           "--accent-color": accentColor,
-          "--pattern-image": "url(" + patterns[index] + ".svg)",
+          "--pattern-image": "url(/" + patterns[index] + ".svg)",
           "--pattern-size": patternSizes[index],
           "--card-background-color": backgroundColors[0],
           "--card-background-color-dark": backgroundColors[1],

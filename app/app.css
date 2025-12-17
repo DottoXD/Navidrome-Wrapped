@@ -26,8 +26,13 @@
 body {
   background-color: var(--color-background);
   font-family: "Rubik", sans-serif;
+  font-display: swap;
   color: var(--color-text);
   margin: 0;
+}
+
+.error {
+  margin-bottom: 3rem;
 }
 
 #error,
@@ -67,6 +72,10 @@ body {
   bottom: 0;
 }
 
+#footer p {
+  text-shadow: 0 0 0.1rem var(--color-upper);
+}
+
 button {
   width: 13rem;
   height: 2.75rem;
@@ -92,7 +101,7 @@ input {
   font-size: 0.9rem;
   text-align: center;
   background-color: var(--color-upper);
-  color: var(--color-background);
+  filter: contrast(1.5);
   transition: var(--default-transition);
   border-radius: 0.1rem;
 }
@@ -114,12 +123,12 @@ button:active {
 }
 
 #wrappedOther {
-  margin-top: 3rem;
+  margin-top: 2rem;
   text-align: center;
 }
 
 #cardsContainer {
-  margin: 5rem auto;
+  margin: 4rem auto;
   display: grid;
   justify-content: center;
   gap: 1rem;

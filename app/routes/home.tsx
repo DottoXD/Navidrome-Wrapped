@@ -2,8 +2,8 @@ import { useLocation, useNavigate, useSearchParams } from "react-router";
 import type { Route } from "./+types/home";
 import React from "react";
 
-export function meta({}: Route.MetaArgs) {
-  return [{ title: "Navidrome Wrapped" }];
+export function meta({ }: Route.MetaArgs) {
+  return [{ title: "Navidrome Wrapped", description: "Welcome to Navidrome Wrapped; a simple WIP project to generate fancy cards displaying user activity on Navidrome." }];
 }
 
 export default function Home() {

@@ -12,8 +12,8 @@ import { useLocation, useNavigate } from "react-router";
 import generateDiff from "@/lib/generateDiff";
 import nProgress from "nprogress";
 
-export function meta({}: Route.MetaArgs) {
-  return [{ title: "Navidrome Wrapped" }];
+export function meta({ }: Route.MetaArgs) {
+  return [{ title: "Navidrome Wrapped", description: "Your Navidrome wrapped cards are on the way!" }];
 }
 
 const colorThief = new ColorThief();
