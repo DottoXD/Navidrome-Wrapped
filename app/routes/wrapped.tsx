@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { WrappedCard } from "@/welcome/card";
+import { WrappedCard } from "@/components/card";
 import getTopAlbums from "@/lib/getTopAlbums";
 import getSongs from "@/lib/getSongs";
 import React from "react";

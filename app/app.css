@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: "Rubik";
-  src: url("Rubik.ttf");
+  src: url("/Rubik.ttf");
 }
 
 * {
@@ -53,6 +53,18 @@ body {
 #home h1 {
   font-size: 2.5rem;
   width: 100%;
+}
+
+#footer {
+  position: fixed;
+  width: 100%;
+  height: 3rem;
+  margin-top: 1rem;
+  text-align: center;
+  vertical-align: middle;
+  color: var(--color-text);
+  filter: brightness(0.7);
+  bottom: 0;
 }
 
 button {
@@ -391,13 +403,12 @@ button:active {
   color: var(--card-background-color);
 }
 
-/* Make clicks pass-through */
 #nprogress {
   pointer-events: none;
 }
 
 #nprogress .bar {
-  background: #29d;
+  background: var(--color-detail);
 
   position: fixed;
   z-index: 1031;
@@ -405,10 +416,9 @@ button:active {
   left: 0;
 
   width: 100%;
-  height: 2px;
+  height: 0.2rem;
 }
 
-/* Fancy blur effect */
 #nprogress .peg {
   display: block;
   position: absolute;
@@ -416,8 +426,8 @@ button:active {
   width: 100px;
   height: 100%;
   box-shadow:
-    0 0 10px #29d,
-    0 0 5px #29d;
+    0 0 10px var(--color-detail),
+    0 0 5px var(--color-detail);
   opacity: 1;
 
   -webkit-transform: rotate(3deg) translate(0px, -4px);
@@ -425,27 +435,26 @@ button:active {
   transform: rotate(3deg) translate(0px, -4px);
 }
 
-/* Remove these to get rid of the spinner */
 #nprogress .spinner {
   display: block;
   position: fixed;
   z-index: 1031;
-  top: 15px;
-  right: 15px;
+  top: 1rem;
+  right: 1rem;
 }
 
 #nprogress .spinner-icon {
-  width: 18px;
-  height: 18px;
+  width: 1.5rem;
+  height: 1.5rem;
   box-sizing: border-box;
 
   border: solid 2px transparent;
-  border-top-color: #29d;
-  border-left-color: #29d;
+  border-top-color: var(--color-detail);
+  border-left-color: var(--color-detail);
   border-radius: 50%;
 
-  -webkit-animation: nprogress-spinner 400ms linear infinite;
-  animation: nprogress-spinner 400ms linear infinite;
+  -webkit-animation: nprogress-spinner 600ms linear infinite;
+  animation: nprogress-spinner 600ms linear infinite;
 }
 
 .nprogress-custom-parent {

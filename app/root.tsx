@@ -1,6 +1,7 @@
 import {
   isRouteErrorResponse,
   Link,
+  Links,
   Meta,
   Outlet,
   Scripts,
@@ -8,8 +9,9 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import "./app.css";
 import useNProgress from "./hooks/useNProgress";
+import "./app.css";
+import Footer from "./components/footer";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   useNProgress();
@@ -20,9 +22,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
+        <Links />
       </head>
       <body>
         {children}
+        <Footer />
         <ScrollRestoration />
         <Scripts />
       </body>
