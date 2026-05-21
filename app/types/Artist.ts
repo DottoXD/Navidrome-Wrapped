@@ -3,3 +3,8 @@ export type Artist = {
   name: string;
   occurencies: number;
 };
+
+export type IDArtist = {
+  id: string;
+  occurencies: number
+}

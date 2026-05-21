@@ -5,8 +5,7 @@ export default async function getSongs(authData: AuthData) {
   const parsedSong = (song: Song) => ({
     id: song.id,
     title: song.title,
-    artist: song.artist,
-    album: song.album,
+    artists: song.artists,
     albumId: song.albumId,
     artistId: song.artistId,
     playCount: song.playCount ?? 0,

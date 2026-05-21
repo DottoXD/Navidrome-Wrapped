@@ -1,7 +1,7 @@
 export type Song = {
   id: string;
   title: string;
-  artist: string;
+  artists: nameArtist[];
   album: string;
   albumId: string;
   artistId: string;
@@ -9,4 +9,9 @@ export type Song = {
   genre: string;
   duration: number | null;
   coverArt: string | null;
+};
+
+export type nameArtist = {
+  id: string;
+  name: string;
 };
