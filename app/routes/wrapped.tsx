@@ -4,13 +4,15 @@ import getTopAlbums from "@/lib/getTopAlbums";
 import getSongs from "@/lib/getSongs";
 import React from "react";
 import type { Song } from "@/types/Song";
-import type { Artist } from "@/types/Artist";
+import type { Artist, IDArtist } from "@/types/Artist";
 import type { Genre } from "@/types/Genre";
 import ColorThief from "colorthief";
 import type { Album } from "@/types/Album";
 import { useLocation, useNavigate } from "react-router";
 import generateDiff from "@/lib/generateDiff";
 import nProgress from "nprogress";
+import getArtists from "./countartists";
+import type { AuthData } from "@/types/AuthData";
 
 export function meta({ }: Route.MetaArgs) {
   return [{ title: "Navidrome Wrapped", description: "Your Navidrome wrapped cards are on the way!" }];
@@ -85,43 +87,27 @@ export default function Wrapped() {
       setTopAlbums(albums);
 
       let songs;
+      const authdata: AuthData = { server: serverUrl, username, password }
       try {
-        songs = await getSongs({ server: serverUrl, username, password });
+        songs = await getSongs(authdata);
       } catch (e) {
         return navigate("/?error=true", {
           state: {
             error: e,
-          },
+          }
         });
       }
 
       setTopSongs(songs.slice(0, 5));
       let time = 0;
-      const artists: Artist[] = [];
       const genres: Genre[] = [];
+
+
+      const [topArtists, artist] : [Artist[], IDArtist[]] = await getArtists(authdata, songs)
+      console.log(topArtists);  
 
       songs.forEach((song: Song) => {
         time += (song.duration ?? 0) * song.playCount;
-
-        const songArtists: string[] = song.artist.split(";");
-        songArtists.forEach((songArtist: string) => {
-          let found = false;
-
-          artists.forEach((artist: Artist) => {
-            if (!found && artist.name.trim() == songArtist.trim()) {
-              artist.occurencies += song.playCount;
-              found = true;
-            }
-          });
-
-          if (!found) {
-            artists.push({
-              id: song.artistId,
-              name: songArtist.trim(),
-              occurencies: song.playCount,
-            });
-          }
-        });
 
         const songGenre = song.genre;
         if (songGenre) {
@@ -139,15 +125,14 @@ export default function Wrapped() {
         }
       });
 
-      const a = artists.sort(
-        (a: Artist, b: Artist) => b.occurencies - a.occurencies,
-      );
-
-      setTopArtists(a.slice(0, 5));
+      const a = artist.sort((a: IDArtist, b: IDArtist) => b.occurencies - a.occurencies)
 
       const sortedGenres = genres.sort(
         (a: Genre, b: Genre) => b.occurencies - a.occurencies,
       );
+
+      setTopArtists(topArtists)
+
       if (!sortedGenres[0])
         return navigate("/?error=true", {
           state: {
@@ -294,3 +279,4 @@ export default function Wrapped() {
     </div>
   );
 }
+
