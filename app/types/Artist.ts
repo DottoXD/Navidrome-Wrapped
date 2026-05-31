@@ -6,5 +6,5 @@ export type Artist = {
 
 export type IDArtist = {
   id: string;
-  occurencies: number
-}
+  occurencies: number;
+};

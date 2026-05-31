@@ -6,19 +6,22 @@ import React from "react";
 import type { Song } from "@/types/Song";
 import type { Artist, IDArtist } from "@/types/Artist";
 import type { Genre } from "@/types/Genre";
-import ColorThief from "colorthief";
 import type { Album } from "@/types/Album";
 import { useLocation, useNavigate } from "react-router";
 import generateDiff from "@/lib/generateDiff";
 import nProgress from "nprogress";
-import getArtists from "./countartists";
 import type { AuthData } from "@/types/AuthData";
+import getArtists from "@/lib/getArtists";
+import { getColorSync } from "colorthief";
 
-export function meta({ }: Route.MetaArgs) {
-  return [{ title: "Navidrome Wrapped", description: "Your Navidrome wrapped cards are on the way!" }];
+export function meta({}: Route.MetaArgs) {
+  return [
+    {
+      title: "Navidrome Wrapped | Wrapped",
+      description: "Your Navidrome wrapped cards are on the way!",
+    },
+  ];
 }
-
-const colorThief = new ColorThief();
 
 export default function Wrapped() {
   const navigate = useNavigate();
@@ -41,14 +44,11 @@ export default function Wrapped() {
     if (diff == "") return alert("No diff was generated yet");
 
     const blob = new Blob([diff], { type: "application/json" });
-
     const url = URL.createObjectURL(blob);
-
     const link = document.createElement("a");
     link.href = url;
     link.target = "_blank";
     link.download = `navDiff-${new Date().getTime()}.wrapped`;
-
     link.click();
     URL.revokeObjectURL(url);
   };
@@ -69,7 +69,6 @@ export default function Wrapped() {
       }
 
       let albums;
-
       try {
         albums = await getTopAlbums({
           server: serverUrl,
@@ -79,7 +78,8 @@ export default function Wrapped() {
       } catch (e) {
         return navigate("/?error=true", {
           state: {
-            error: e,
+            error:
+              e instanceof Error ? e.message : "Failed to fetch top albums",
           },
         });
       }
@@ -87,14 +87,14 @@ export default function Wrapped() {
       setTopAlbums(albums);
 
       let songs;
-      const authdata: AuthData = { server: serverUrl, username, password }
+      const authdata: AuthData = { server: serverUrl, username, password };
       try {
         songs = await getSongs(authdata);
       } catch (e) {
         return navigate("/?error=true", {
           state: {
-            error: e,
-          }
+            error: e instanceof Error ? e.message : "Failed to fetch songs",
+          },
         });
       }
 
@@ -102,9 +102,10 @@ export default function Wrapped() {
       let time = 0;
       const genres: Genre[] = [];
 
-
-      const [topArtists, artist] : [Artist[], IDArtist[]] = await getArtists(authdata, songs)
-      console.log(topArtists);  
+      const [topArtists, artist]: [Artist[], IDArtist[]] = await getArtists(
+        authdata,
+        songs,
+      );
 
       songs.forEach((song: Song) => {
         time += (song.duration ?? 0) * song.playCount;
@@ -125,25 +126,24 @@ export default function Wrapped() {
         }
       });
 
-      const a = artist.sort((a: IDArtist, b: IDArtist) => b.occurencies - a.occurencies)
-
-      const sortedGenres = genres.sort(
-        (a: Genre, b: Genre) => b.occurencies - a.occurencies,
+      const a = artist.sort(
+        (a: IDArtist, b: IDArtist) => b.occurencies - a.occurencies,
       );
+      genres.sort((a: Genre, b: Genre) => b.occurencies - a.occurencies);
 
-      setTopArtists(topArtists)
+      setTopArtists(topArtists);
 
-      if (!sortedGenres[0])
+      if (!genres[0]) {
         return navigate("/?error=true", {
           state: {
-            error: "Missing data",
+            error: "Missing data from server",
           },
         });
+      }
 
-      setTopGenre(sortedGenres[0].name);
+      setTopGenre(genres[0].name);
       setListenTime(Math.round(time / 60));
-
-      setDiff(await generateDiff(time, sortedGenres, a, songs, albums));
+      setDiff(await generateDiff(time, genres, a, songs, albums));
 
       const topArtist = a.slice(0, 1)[0];
       const topAlbum = albums.slice(0, 1)[0];
@@ -159,13 +159,11 @@ export default function Wrapped() {
 
       if (topArtist) {
         url.searchParams.set("id", topArtist.id);
-
         covers[0] = url.toString();
       }
 
       if (topAlbum) {
         url.searchParams.set("id", topAlbum.coverArt ?? topAlbum.id);
-
         covers[1] = url.toString();
       }
 
@@ -174,7 +172,6 @@ export default function Wrapped() {
           "id",
           topSong.coverArt ?? topSong.id ?? topSong.albumId,
         );
-
         covers[2] = url.toString();
       }
 
@@ -186,7 +183,8 @@ export default function Wrapped() {
     } catch (e) {
       navigate("/?error=true", {
         state: {
-          error: e,
+          error:
+            e instanceof Error ? e.message : "An unexpected error occurred",
         },
       });
     }
@@ -202,7 +200,7 @@ export default function Wrapped() {
 
       img.onload = () => {
         try {
-          const color = colorThief.getColor(img);
+          const color: any = getColorSync(img);
           const hex =
             "#" +
             ((1 << 24) | (color[0] << 16) | (color[1] << 8) | color[2])
@@ -252,18 +250,18 @@ export default function Wrapped() {
 
   const data = React.useMemo(() => {
     const d = [...baseData];
-
     for (let i = d.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       const temp = d[i];
       d[i] = d[j];
       d[j] = temp;
     }
-
     return d;
   }, [cover, topArtists, topSongs, topAlbums, listenTime, topGenre, mainColor]);
 
-  if (mainColor[2] == "") return <div></div>;
+  if (topSongs.length === 0) {
+    return <div id="loading">Loading your Navidrome Wrapped...</div>;
+  }
 
   return (
     <div>
@@ -279,4 +277,3 @@ export default function Wrapped() {
     </div>
   );
 }
-

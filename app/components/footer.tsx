@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 
 export default function Footer() {
   const location = useLocation();
@@ -27,8 +27,11 @@ export default function Footer() {
   return (
     <div id="footer">
       <p>
-        v{__COMMIT_HASH__ ?? "Development"} - DottoXD @{" "}
-        {new Date().getFullYear()} - init {initialLoad}s | route {loadTime}s
+        v{__COMMIT_HASH__ ?? "Development"} - DottoXD @ 2025~
+        {new Date().getFullYear()} - init {initialLoad}s | route {loadTime}s -{" "}
+        <Link to="/privacy-policy" target="_blank" rel="noopener noreferrer">
+          Privacy policy
+        </Link>
       </p>
     </div>
   );

@@ -22,7 +22,11 @@ export default async function getTopAlbums(authData: AuthData) {
   url.searchParams.set("c", "NavidromeWrapped");
   url.searchParams.set("f", "json");
 
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    headers: {
+      "User-Agent": "NavidromeWrapped",
+    },
+  });
   const json = await res.json();
 
   const albumsRaw = json["subsonic-response"]?.albumList2?.album || [];

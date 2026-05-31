@@ -1,9 +1,15 @@
-import { useLocation, useNavigate, useSearchParams } from "react-router";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import type { Route } from "./+types/home";
 import React from "react";
 
-export function meta({ }: Route.MetaArgs) {
-  return [{ title: "Navidrome Wrapped", description: "Welcome to Navidrome Wrapped; a simple WIP project to generate fancy cards displaying user activity on Navidrome." }];
+export function meta({}: Route.MetaArgs) {
+  return [
+    {
+      title: "Navidrome Wrapped | Home",
+      description:
+        "Welcome to Navidrome Wrapped; a simple project to generate fancy cards displaying user activity on Navidrome.",
+    },
+  ];
 }
 
 export default function Home() {
@@ -30,13 +36,10 @@ export default function Home() {
   return (
     <div id="home">
       <h1>Navidrome Wrapped</h1>
-      <p className="error">
-        {Boolean(searchParams.get("error")) == true && error
-          ? "An error occured while creating your Navidrome Wrapped:"
-          : ""}{" "}
-        {error}
-      </p>
-      <div>
+      {Boolean(searchParams.get("error")) == true && error && (
+        <p className="error">{error}</p>
+      )}
+      <div className="wrapped-form">
         <input
           type="url"
           id="serverUrl"
@@ -56,6 +59,13 @@ export default function Home() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+      <p className="privacy-notice">
+        By generating your Wrapped, you agree to the{" "}
+        <Link to="/privacy-policy" target="_blank" rel="noopener noreferrer">
+          Privacy Policy
+        </Link>
+        .
+      </p>
       <button onClick={handleGenerate}>Generate</button>
     </div>
   );
