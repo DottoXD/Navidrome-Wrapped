@@ -1,7 +1,7 @@
 :root {
   --color-background: #f4f4f5;
   --color-text: #18181b;
-  --color-detail: #2563eb;
+  --color-detail: #77a0fa;
   --color-upper: #e4e4e7;
   --color-border: #d4d4d8;
   --color-input-bg: #ffffff;
@@ -25,7 +25,7 @@
 
 @font-face {
   font-family: "Rubik";
-  src: url("/fonts/Rubik-Regular.ttf") format("woff2");
+  src: url("/fonts/Rubik-Regular.woff2") format("woff2");
   font-style: normal;
   font-weight: normal;
   font-display: swap;
@@ -33,7 +33,7 @@
 
 @font-face {
   font-family: "Rubik";
-  src: url("/fonts/Rubik-500.ttf") format("woff2");
+  src: url("/fonts/Rubik-500.woff2") format("woff2");
   font-style: normal;
   font-weight: 500;
   font-display: swap;
@@ -41,7 +41,7 @@
 
 @font-face {
   font-family: "Rubik";
-  src: url("/fonts/Rubik-600.ttf") format("woff2");
+  src: url("/fonts/Rubik-600.woff2") format("woff2");
   font-style: normal;
   font-weight: 600;
   font-display: swap;
@@ -49,7 +49,7 @@
 
 @font-face {
   font-family: "Rubik";
-  src: url("/fonts/Rubik-700.ttf") format("woff2");
+  src: url("/fonts/Rubik-700.woff2") format("woff2");
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -626,7 +626,7 @@ button:active {
   :root {
     --color-background: #09090b;
     --color-text: #f4f4f5;
-    --color-detail: #6f9fec;
+    --color-detail: #3984fd;
     --color-upper: #27272a;
     --color-border: #27272a;
     --color-input-bg: #18181b;
