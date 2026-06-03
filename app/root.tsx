@@ -13,7 +13,7 @@ import useNProgress from "./hooks/useNProgress";
 import "./app.css";
 import Footer from "./components/footer";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "Navidrome Wrapped | Navidrome Recap" },
     {
@@ -41,6 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="preload" href="/fonts/Rubik-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <Meta />
         <Links />
       </head>

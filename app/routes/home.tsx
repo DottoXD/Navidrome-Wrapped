@@ -2,13 +2,24 @@ import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import type { Route } from "./+types/home";
 import React from "react";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     {
       title: "Navidrome Wrapped | Home",
-      description:
-        "Welcome to Navidrome Wrapped; a simple project to generate fancy cards displaying user activity on Navidrome.",
     },
+    {
+      name: "description",
+      content:
+        "A simple project to generate fancy cards displaying user activity on Navidrome.",
+    },
+    { property: "og:title", content: "Navidrome Wrapped | Navidrome Recap" },
+    {
+      property: "og:description",
+      content:
+        "A simple project to generate fancy cards displaying user activity on Navidrome.",
+    },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://wrapped.dotto.pw" }
   ];
 }
 

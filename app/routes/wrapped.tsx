@@ -12,14 +12,26 @@ import generateDiff from "@/lib/generateDiff";
 import nProgress from "nprogress";
 import type { AuthData } from "@/types/AuthData";
 import getArtists from "@/lib/getArtists";
-import { getColorSync } from "colorthief";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     {
       title: "Navidrome Wrapped | Wrapped",
       description: "Your Navidrome wrapped cards are on the way!",
     },
+    {
+      name: "description",
+      content:
+        "Your Navidrome wrapped cards are on the way!",
+    },
+    { property: "og:title", content: "Navidrome Wrapped | Navidrome Recap" },
+    {
+      property: "og:description",
+      content:
+        "Your Navidrome wrapped cards are on the way!",
+    },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://wrapped.dotto.pw" }
   ];
 }
 
@@ -198,8 +210,9 @@ export default function Wrapped() {
       img.crossOrigin = "Anonymous";
       img.src = cover[i];
 
-      img.onload = () => {
+      img.onload = async () => {
         try {
+          const { getColorSync } = await import("colorthief");
           const color: any = getColorSync(img);
           const hex =
             "#" +
