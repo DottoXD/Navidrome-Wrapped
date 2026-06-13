@@ -61,7 +61,10 @@
 
 body {
   background-color: var(--color-background);
-  font-family: "Rubik", -apple-system, sans-serif;
+  font-family:
+    "Rubik",
+    -apple-system,
+    sans-serif;
   font-display: swap;
   color: var(--color-text);
   margin: 0;

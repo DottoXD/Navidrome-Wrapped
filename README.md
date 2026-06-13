@@ -1,15 +1,18 @@
-
 # Navidrome Wrapped
+
 A simple client-side webapp made to allow users to build simple Spotify Wrapped alike cards for Navidrome, built with simplicity in mind.
 
 ## Issues and pull requests
+
 Feel free to open an issue for any question, suggestion or any actual issue. Pull requests are highly appreciated as long as they're tested.
 
 ## Demo
+
 An hosted version of this project is available at [wrapped.dotto.pw](https://wrapped.dotto.pw).
 You can find the hosted version's privacy policy [here](https://wrapped.dotto.pw/privacy-policy).
 
 ## License
+
 ```
 Copyright (C) 2025 - 2026 DottoXD
 
