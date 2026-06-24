@@ -10,13 +10,13 @@ import type { Album } from "@/types/Album";
 import { useLocation, useNavigate } from "react-router";
 import generateDiff, {
   subtractDiff,
-  type WrappedDiff,
 } from "@/lib/generateDiff";
 import nProgress from "nprogress";
 import type { AuthData } from "@/types/AuthData";
 import getArtists from "@/lib/getArtists";
+import type { WrappedDiff } from "@/types/WrappedDiff";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     {
       title: "Navidrome Wrapped | Wrapped",
@@ -54,11 +54,11 @@ export default function Wrapped() {
   const location = useLocation();
   const { serverUrl, username, password, prevDiff } = (location.state ||
     {}) as {
-    serverUrl: string;
-    username: string;
-    password: string;
-    prevDiff: WrappedDiff | null;
-  };
+      serverUrl: string;
+      username: string;
+      password: string;
+      prevDiff: WrappedDiff | null;
+    };
 
   const handleDiff = async () => {
     if (diff === "") return alert("No diff was generated yet!");

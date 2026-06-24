@@ -3,7 +3,7 @@ import type { Route } from "./+types/home";
 import React from "react";
 import type { WrappedDiff } from "@/types/WrappedDiff";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     {
       title: "Navidrome Wrapped | Home",
@@ -93,10 +93,10 @@ export default function Home() {
 
   const diffDate = prevDiff
     ? new Date(prevDiff.diffTime).toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-      })
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    })
     : null;
 
   return (
@@ -141,7 +141,7 @@ export default function Home() {
               <span className="diff-loaded-name">
                 {diffFileName}
                 {diffDate && (
-                  <span className="diff-loaded-date"> — saved {diffDate}</span>
+                  <span className="diff-loaded-date"> saved on {diffDate}</span>
                 )}
               </span>
               <button
